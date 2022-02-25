@@ -14,7 +14,6 @@
 // require()
 const { DateTime } = require('luxon');
 const fs = require('fs');
-const translate = require('@vitalets/google-translate-api');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 const { MessageEmbed } = require('discord.js');
@@ -26,32 +25,23 @@ consoleLog('Program Started');
 
 // Func at start
 
-async function consoleLog(logMessage) {
+async function consoleLog(logMessage, type='INFO') {
 
-	console.log('[' + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS) + '] >> ' + logMessage);
+	console.log('[' + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS) + `] [${type}] >> ` + logMessage);
 
-	fs.writeFileSync
 }
 
-
+// Discord client
 const client = new Client({
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 	partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
 });
+
 //
 // Func
 //
-async function translateText(text, language) {
-	// Translate
-	try {
-		const res = await translate(text, { to: language });
-		return res.text;
-	}
-	catch (error) {
-		return false;
-	}
-}
 
+// ** NONE **
 
 //
 // Commands
@@ -73,62 +63,6 @@ client.on('message', async (message) => {
 
 });
 
-client.on('messageReactionAdd', async (reaction, user) => {
-	// When a reaction is received, check if the structure is partial
-
-	if (reaction.partial) {
-		// If the message this reaction belongs to was removed, the fetching might result in an API error which should be handled
-		try {
-			await reaction.fetch();
-		} catch (error) {
-			console.error('Something went wrong when fetching the message:', error);
-			// Return as `reaction.message.author` may be undefined/null
-			return;
-		}
-	}
-
-
-	// Now the message has been cached and is fully available
-	consoleLog(`${reaction.message.author}'s message "${reaction.message.content}" gained a reaction!`);
-	// The reaction is now also fully available and the properties will be reflected accurately:
-	consoleLog(`${reaction.count} user(s) have given the same reaction to this message!`);
-
-
-	const contents = fs.readFileSync('flags.json');
-	// Define to JSON type
-	const lang = JSON.parse(contents);
-	const finalLang = lang[reaction.emoji];
-	const contents2 = fs.readFileSync('lang.json');
-	const lang2 = JSON.parse(contents2);
-	const fullLang = lang2[finalLang];
-	if (finalLang === undefined) {
-		console.log(`${reaction.emoji.name}`);
-	} else {
-		reaction.remove();
-		await reaction.message.channel.sendTyping();
-		const link = 'https://discord.com/channels/' + reaction.message.guildId + '/' + reaction.message.channelId + '/' + reaction.message.id;
-
-
-		let trans = await translateText(reaction.message.content, finalLang);
-		const is = trans.toString().includes('<@!');
-		if (is) {
-			trans = false;
-		}
-		if (trans.toString() === 'false') {
-			trans = await translateText('You can\'t translate that!', finalLang);
-		}
-
-		const translated = new MessageEmbed()
-	        .setColor('2B2D31')
-	        .setTitle(await translateText(`Translated to ${fullLang}`, finalLang))
-	        .setDescription(await translateText('Translation:', finalLang) + '\n' + trans)
-			.addField(`Original Message by ${reaction.message.author.username}`, `[${reaction.message.content}](${link})`)
-	        .setTimestamp();
-		consoleLog((await reaction.users.fetch()).firstKey())
-		reaction.message.channel.send({ embeds: [translated], ephemeral: true });
-	}
-
-});
 
 client.on("messageCreate", async (message) => {
 	// Disregard messages the bot sent

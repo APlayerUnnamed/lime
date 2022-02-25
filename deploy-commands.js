@@ -6,17 +6,15 @@ const fs = require('fs');
 const { cp } = require('fs/promises');
 const { DateTime } = require('luxon');
 
-async function consoleLog(logMessage) {
+async function consoleLog(logMessage, type='INFO') {
 
-	console.log('[' + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS) + '] >> ' + logMessage);
+	console.log('[' + DateTime.now().toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS) + `] [${type}] >> ` + logMessage);
 
 }
 
-const contents = fs.readFileSync("lang.json");
-// Define to JSON type
-const jsonContent = JSON.parse(contents);
-console.log((JSON.stringify(jsonContent)))
+// Reset command var
 const commands = [];
+// Command files 'e.g. ping.js'
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -29,5 +27,6 @@ const rest = new REST({ version: '9' }).setToken(token);
 rest.put(
 	Routes.applicationCommands(clientId), { body: commands },
 )
+	// If commands are loaded...
 	.then(() => consoleLog('Successfully registered application commands...'))
 	.catch(console.error);
