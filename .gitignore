@@ -1,0 +1,14 @@
+# Node
+node_modules/
+node_modules
+# Critical Bot Information
+client-secrets/
+.env
+# User languange data
+users.json
+# Crash log
+crash.txt
+# Contains Bot Token
+config.json
+# Visual Studio Data
+.vscode
