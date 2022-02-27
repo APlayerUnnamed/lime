@@ -78,14 +78,6 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
 }
-let isWarn = false;
-
-client.on('message', async (message) => {
-	isWarn = false;
-	if (isWarn == false) {
-}
-
-});
 
 
 
