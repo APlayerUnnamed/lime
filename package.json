@@ -5,17 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"This bot does not have a test command!\" && exit 1",
-    "start": "node deploy-commands.js && node index.js",
-    "run": "node deploy-commands.js && node index.js",
-    "commands": "node deploy-commands.js"
+    "start": "node index.js",
+    "run": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discord-player/downloader": "^3.0.1",
+    "@discord-player/extractor": "^3.0.2",
     "@discordjs/builders": "^0.12.0",
+    "@discordjs/opus": "^0.5.3",
     "@discordjs/rest": "^0.3.0",
+    "@discordjs/voice": "github:discordjs/voice",
     "discord-api-types": "^0.27.3",
-    "discord.js": "^13.6.0"
+    "discord-player": "^5.2.2",
+    "discord.js": "^13.6.0",
+    "ffmpeg-static": "^4.4.1",
+    "luxon": "^2.3.1"
   }
 }
