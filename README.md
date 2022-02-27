@@ -4,7 +4,9 @@
 
 ***Lime is a bot that exists, not much else.***
 
-***It can play music, so I guess thats cool?***
+***It can play music, so I guess thats cool...***
+
+*See setup.md for more info*
 
 *v1.0*
 
