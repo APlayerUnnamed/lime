@@ -1,7 +1,7 @@
 module.exports = (client, interaction) => {
 	if (!interaction.isCommand()) return;
 	if (interaction.guildId === null) { // Check guild
-		return;
+		return interaction.reply({ content: 'You can not use (/) commands in DM\'s', ephemeral: true });
 	}
 
     const command = client.commands.get(interaction.commandName);
