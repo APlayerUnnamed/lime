@@ -4,7 +4,9 @@
 
 ***Lime is a bot that exists, not much else.***
 
-*This build is a test/debug build; not a release.*
+***It can play music, so I guess thats cool?***
+
+*v1.0*
 
 **Powered by DiscordJS**
 
