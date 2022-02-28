@@ -4,6 +4,11 @@
 
 **Lime Setup**
 
+Officialy Supported/Tested
+- [X] Windows
+- [X] Linux
+- [] MacOS
+
 **Step 1**
 
 *Clone the repository*
