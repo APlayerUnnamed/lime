@@ -29,24 +29,12 @@ module.exports = {
             consoleLog(`${interaction.user.username} did /pause`);
         if (!queue) return interaction.followUp({ embeds: [nm], ephemeral: true })
 
-        if (queue.isPlaying) return await interaction.reply({ content: "The music is already playing!", ephemeral: true });
-
-
         // If user is not in a channel
         if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
 
         // If user is in a different voice channel from the bots
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
-        const iap = new MessageEmbed() // No music playing embed
-                .setColor('RED')
-                .setTitle('Failed!')
-                .setDescription('The music is already paused!')
-                .setTimestamp();
-            consoleLog(`${interaction.user.username} did /pause`);
-        if (queue.setPaused()) {
-            queue.setPaused(false)
-            return await interaction.followUp({ embeds: [iap], ephemeral: true });
-        }
+        
         try {
             queue.setPaused(true);
             // Embed
