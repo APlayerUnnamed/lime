@@ -7,7 +7,7 @@
 Officialy Supported/Tested
 - [X] Windows
 - [X] Linux
-- [] MacOS
+- [ ] MacOS
 
 **Step 1**
 
