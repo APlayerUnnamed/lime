@@ -24,8 +24,10 @@ module.exports = {
         });
 
         // If user is not in a channel
-        if (!interaction.member.voice.channelId) return await interaction.followUp({ content: "You are not in a voice channel!", ephemeral: true });
-        
+        if (!interaction.member.voice.channelId) {
+            const embF = new MessageEmbed().setDescription('❎⠀You are not in a voice channel!').setColor('#2f3136');
+            return await interaction.followUp({ embeds: [embF], ephemeral: false });
+        }
         // If user is in a different voice channel from the bots
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
 
@@ -36,22 +38,25 @@ module.exports = {
             if (!queue.playing) await queue.play();
         } catch (aer) {
             consoleLog(aer)
-            return await interaction.followUp({ content: "Could not join your voice channel!", ephemeral: true });
+            const embF = new MessageEmbed().setDescription('❎⠀Failed to join your voice channel!').setColor('#2f3136');
+            return await interaction.followUp({ embeds: [embF], ephemeral: false });
         }
 
         const track = await player.search(query, {
             requestedBy: interaction.user
         }).then(x => x.tracks[0]);
-        if (!track) return await interaction.followUp({ content: `Couldn't find results for **${query}**!` });
-
+        if (!track) {
+            const embF = new MessageEmbed().setDescription('❎⠀Didn\'t find any results!').setColor('#2f3136');
+            return await interaction.followUp({ embeds: [embF], ephemeral: false });
+        }
         queue.play(track);
         // Embed
         const emb = new MessageEmbed()
-            .setColor('DARK_GREEN')
-            .setTitle('Success')
-            .addField('Title', track.title, false)
-            .addField('Author', track.author, false)
-            .addField('Requested By', interaction.user.username)
+            .setColor('#2f3136')
+            .setTitle('Done')
+            .setDescription(`\`\`\`json\n${track.title}\`\`\``)
+            .addField('🎙️⠀Author', track.author, true)
+            .addField('💿⠀Requested By', `<@${interaction.user.id}>`, true)
             .setTimestamp();
         consoleLog(`${interaction.user.username} did /play`);
 		return await interaction.followUp({ embeds: [emb], ephemeral: true });

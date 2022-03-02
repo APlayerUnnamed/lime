@@ -1,14 +1,12 @@
 # Node
 node_modules/
 node_modules
+lime/node_modules
 # Critical Bot Information
-client-secrets/
-.env
-# User languange data
-users.json
+lime/client-secrets/
 # Crash log
-crash.txt
+lime/crash.txt
 # Contains Bot Token
-config.json
+lime/config.json
 # Visual Studio Data
 .vscode

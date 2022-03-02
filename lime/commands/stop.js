@@ -16,22 +16,22 @@ module.exports = {
         .setDescription('Stop playing music!'),
     async execute(interaction, client) {
 
-        await interaction.deferReply();
 
         const queue = player.getQueue(interaction.guild.id);
 
-        const nm = new MessageEmbed()
-                .setColor('RED')
-                .setTitle('Failed!')
-                .setDescription('No music is currently playing!')
-                .setTimestamp();
+        
             consoleLog(`${interaction.user.username} did /pause`);
-        if (!queue) return interaction.followUp({ embeds: [nm], ephemeral: true })
+        if (!queue) {
+            const embF = new MessageEmbed().setDescription('❎⠀No Music is Playing!').setColor('#2f3136');
+            return await interaction.reply({ embeds: [embF], ephemeral: true });
+        }
 
 
         // If user is not in a channel
-        if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-
+        if (!interaction.member.voice.channelId) {
+            const embF = new MessageEmbed().setDescription('❎⠀You are not in a voice channel!').setColor('#2f3136');
+            return await interaction.reply({ embeds: [embF], ephemeral: true })
+        }
         // If user is in a different voice channel from the bots
         if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
 
@@ -39,22 +39,14 @@ module.exports = {
         try {
             queue.stop();
             // Embed
-            const emb = new MessageEmbed()
-                .setColor('DARK_GREEN')
-                .setTitle('Success')
-                .setDescription('Music Stopped!')
-                .setTimestamp();
+            const emb = new MessageEmbed().setDescription('✅⠀Stopped the Music!').setColor('#2f3136');
             consoleLog(`${interaction.user.username} did /stop`);
-            return await interaction.followUp({ embeds: [emb], ephemeral: true });
+            return await interaction.reply({ embeds: [emb], ephemeral: false });
 
         } catch (err) {
-            const emb = new MessageEmbed()
-                .setColor('RED')
-                .setTitle('Failed!')
-                .setDescription('Failed to stop the music, was it even playing?')
-                .setTimestamp();
+            const embFs = new MessageEmbed().setDescription('❎⠀Something went wrong!').setColor('#2f3136');
             consoleLog(`${interaction.user.username} did /stop`);
-            return await interaction.followUp({ embeds: [emb], ephemeral: true });
+            return await interaction.reply({ embeds: [embFs], ephemeral: true });
         }
 	},
 };
