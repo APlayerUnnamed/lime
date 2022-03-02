@@ -6,10 +6,11 @@
 
 ***It can play music, so I guess thats cool...***
 
-*See setup.md for more info*
+<a href="/setup.md" style="text-decoration: none;">*See setup.md for more info*</a>
 
-*v1.0*
 
 **Powered by DiscordJS**
 
 **Apache-2.0 License**
+
+***v2.0.0 - Not Stable***

@@ -15,7 +15,7 @@ Officialy Supported/Tested
 
 ```
 git clone https://github.com/APlayerUnnamed/lime
-cd lime
+cd lime/lime
 ```
 
 **Step 2**
@@ -40,7 +40,7 @@ npm install luxon
 
 *Create Config*
 
-Create a file named "config.json" in the folder.
+Create a file named "config.json" in the folder "lime" in the lime directory. (Yes I know it's confusing)
 
 Then once you have [your bot](https://www.writebots.com/discord-bot-token/) ready put this in your newly created config.json file:
 
@@ -69,4 +69,6 @@ https://raw.githubusercontent.com/APlayerUnnamed/lime/main/assets/lime-nor.png
 ```
 
 *Enjoy!*
+
+***Version 2.0.0***
 
