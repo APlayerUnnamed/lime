@@ -1,5 +1,6 @@
 # lime
 **Yet another Discord bot; what did you expect?**
+
 **If you've somehow found this don't use it, its legacy and unstable**
 ![Lime Logo/Icon](assets/lime-nor.png)
 
